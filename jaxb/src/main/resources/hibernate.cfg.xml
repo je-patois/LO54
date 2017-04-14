@@ -41,11 +41,13 @@ Contributor(s):
 -->
 <hibernate-configuration>
   <session-factory>
-    <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/gestion_formation</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/gestion_formation?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="connection.username">LO54</property>
     <property name="connection.password">LO54</property>
+    <property name="connection.useSSL">false</property>
+    <property name="connection.requireSSL">false</property>
     <property name="connection.pool_size">1</property>
     <property name="current_session_context_class">thread</property>
     <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
