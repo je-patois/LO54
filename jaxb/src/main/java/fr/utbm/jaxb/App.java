@@ -9,7 +9,7 @@ public class App
 {
 	public static void main( String[] args ) {
 		System.out.println("Bonjour");
-		
+		System.out.println("Ca va ?");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		System.out.println("aaa");
 		/*try { 
