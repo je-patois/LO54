@@ -2,15 +2,19 @@ package fr.utbm.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Location implements Serializable {
-	
-	private static final long serialVersionUID = 12323123455123L;
 	
 	public Location() {
 		
@@ -18,11 +22,17 @@ public class Location implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID")
 	private Integer id;
 	
-	
+	@Column(name="CITY")
 	private String city;
-
+	
+	@ManyToMany
+	  @JoinTable(
+	      name="CourseSession",
+	      joinColumns=@JoinColumn(name="LOCATION_ID", referencedColumnName="id"), inverseJoinColumns=@JoinColumn(name="COURSE_CODE", referencedColumnName="code"))
+	  private List<Course> courses;
 
 	public Integer getId() {
 		return id;

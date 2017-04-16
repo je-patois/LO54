@@ -54,5 +54,8 @@ Contributor(s):
     <property name="hbm2ddl.auto">update</property>
     
     <mapping class="fr.utbm.entity.Location"/>
+    <mapping class="fr.utbm.entity.Course"/>
+    <mapping class="fr.utbm.entity.CourseSession"/>
+    <mapping class="fr.utbm.entity.Client"/>
   </session-factory>
 </hibernate-configuration>
