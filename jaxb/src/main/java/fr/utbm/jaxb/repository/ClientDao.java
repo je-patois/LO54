@@ -1,5 +1,6 @@
 package fr.utbm.jaxb.repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import org.hibernate.Session;
 import fr.utbm.jaxb.util.HibernateUtil;
 import fr.utbm.jaxb.entity.*;
 
-public class ClientDao {
+public class ClientDao implements Serializable {
 
 	private Session session; 
 	
@@ -59,6 +60,47 @@ public class ClientDao {
 		
 		return listeClient;
 	}
+	
+	//Récupère un client avec son id
+	public Client getClientById (int id){
+		session = HibernateUtil.getSessionFactory().openSession();
+		Client client = new Client();
+		
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Client where id = :id");
+			query.setParameter("id", id);
+			client = (Client) query.uniqueResult();
+			session.getTransaction().commit();
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(session.getTransaction() != null) {
+	            try {
+	                session.getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(session != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		
+		return client;
+	}
+	
 	
 	
 	//ajout d'un client

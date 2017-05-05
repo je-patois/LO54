@@ -1,5 +1,6 @@
 package fr.utbm.jaxb.repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import fr.utbm.jaxb.entity.Client;
 import fr.utbm.jaxb.entity.Course;
 import fr.utbm.jaxb.util.HibernateUtil;
 
-public class CourseDao {
+public class CourseDao implements Serializable{
 	
 	private Session session;
 	
@@ -59,6 +60,45 @@ public class CourseDao {
 		return listeCourse;
 	}
 
+	//Récupère un cours avec son id
+	public Course getClientById (String id){
+		session = HibernateUtil.getSessionFactory().openSession();
+		Course cours = new Course();
+		
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Course where id = :id");
+			query.setParameter("id", id);
+			cours = (Course) query.uniqueResult();
+			session.getTransaction().commit();
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(session.getTransaction() != null) {
+	            try {
+	                session.getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(session != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		
+		return cours;
+	}
 	
 	//ajout d'un cours
 	public boolean addCourse (Course course){
