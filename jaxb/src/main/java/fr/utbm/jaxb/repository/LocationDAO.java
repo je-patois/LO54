@@ -62,7 +62,7 @@ public class LocationDAO implements Serializable {
 	}
 	
 	// Ajoute une location
-	public Boolean addLocation(Location location) {
+	public boolean addLocation(Location location) {
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		Boolean success;
 	    try {
@@ -95,7 +95,7 @@ public class LocationDAO implements Serializable {
 	}
 	
 	// Met à jour une location
-		public Boolean updateLocation(CourseSession courseSession) {
+		public boolean updateLocation(CourseSession courseSession) {
 			setSession(HibernateUtil.getSessionFactory().openSession());
 			Boolean success;
 		    try {
