@@ -19,6 +19,8 @@ public class CourseDao {
 		
 	}
 	
+	
+	//
 	// Récupère toutes les informations de tous les clients 
 	public List<Course> getCourse (){
 			

@@ -20,6 +20,7 @@ public class ClientDao {
 		
 	}
 	
+	//
 	// Récupère toutes les informations de tous les clients 
 	public List<Client> getClient () {
 		
