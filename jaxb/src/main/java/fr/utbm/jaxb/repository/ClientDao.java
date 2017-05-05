@@ -30,6 +30,7 @@ public class ClientDao {
 			session.beginTransaction();
 			Query query = session.createQuery("* from client");
 			listeClient = query.list();
+			session.getTransaction().commit();
 		}
 		
 		catch (HibernateException he) {
@@ -59,6 +60,88 @@ public class ClientDao {
 		return listeClient;
 	}
 	
+	
+	//ajout d'un client
+	public boolean AddClient (Client client){
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		boolean succes;
+		
+		try {
+			session.beginTransaction();
+			session.persist(client);
+			session.getTransaction().commit();
+			succes = true;
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        succes = false;
+	        if(session.getTransaction() != null) {
+	            try {
+	                session.getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(session != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		
+		return succes;
+	}
+	
+	
+	//mise à jour d'un client
+	public boolean UpdateCourse (Client client){
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		boolean succes;
+		try {
+			session.beginTransaction();
+			session.merge(client);
+			session.getTransaction().commit();
+			succes = true;
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        succes = false;
+	        if(session.getTransaction() != null) {
+	            try {
+	                session.getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(session != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		
+		return succes;
+	}
 	
 	
 }
