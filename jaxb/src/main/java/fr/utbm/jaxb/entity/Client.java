@@ -19,6 +19,14 @@ public class Client implements Serializable{
 		
 	}
 	
+	public Client(String lastname, String firstname, String adress, String phone, String email) {
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.adress = adress;
+		this.phone = phone;
+		this.email = email;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID")

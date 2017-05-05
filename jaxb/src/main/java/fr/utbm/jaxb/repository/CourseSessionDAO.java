@@ -8,6 +8,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import fr.utbm.jaxb.entity.Client;
 import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.entity.Location;
 import fr.utbm.jaxb.util.HibernateUtil;
@@ -29,7 +30,7 @@ public class CourseSessionDAO implements Serializable {
 		this.session = session;
 	}
 	
-	// Récupère toutes les informations de toutes les courseSessions
+	// Récupère toutes les informations de toutes les sessions de cours
 	public List<CourseSession> getCourseSession() {
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		List<CourseSession> courseSessionList = new ArrayList<CourseSession>();
@@ -61,7 +62,7 @@ public class CourseSessionDAO implements Serializable {
        return courseSessionList;
 	}
 	
-	// Ajoute une courseSession
+	// Ajoute une session de cours
 	public boolean addCourseSession(CourseSession courseSession) {
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		Boolean success;
@@ -94,7 +95,7 @@ public class CourseSessionDAO implements Serializable {
        return success;
 	}
 	
-	// Met à jour une courseSession
+	// Met à jour une session de cours
 		public boolean updateCourseSession(Location location) {
 			setSession(HibernateUtil.getSessionFactory().openSession());
 			Boolean success;
@@ -125,5 +126,45 @@ public class CourseSessionDAO implements Serializable {
 	            }
 	       }
 	       return success;
+		}
+		
+		//Suppression d'une session de cours
+		public boolean deleteClient (CourseSession courseSession){
+			
+			session = HibernateUtil.getSessionFactory().openSession();
+			boolean succes;
+			try {
+				session.beginTransaction();
+				session.delete(courseSession);
+				session.getTransaction().commit();
+				succes = true;
+			}
+			
+			catch (HibernateException he) {
+		        he.printStackTrace();
+		        succes = false;
+		        if(session.getTransaction() != null) {
+		            try {
+		                session.getTransaction().rollback();
+		            }catch(HibernateException he2) {
+		            	he2.printStackTrace(); 
+		            }
+		        }
+			}
+			
+			finally {
+			
+				if(session != null) {
+		            try { 
+		            	session.close();
+		            }catch(HibernateException he2) {
+		            	he2.printStackTrace(); 
+		            }
+		                
+				}
+		
+			}
+			
+			return succes;
 		}
 }

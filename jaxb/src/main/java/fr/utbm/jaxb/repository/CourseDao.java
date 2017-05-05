@@ -19,7 +19,7 @@ public class CourseDao {
 		
 	}
 	
-	// Récupère toutes les informations de tous les clients 
+	// Récupère toutes les informations de tous les cours
 	public List<Course> getCourse (){
 			
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -60,8 +60,8 @@ public class CourseDao {
 	}
 
 	
-	//ajout d'une course
-	public boolean AddCourse (Course course){
+	//ajout d'un cours
+	public boolean addCourse (Course course){
 		
 		session = HibernateUtil.getSessionFactory().openSession();
 		boolean succes;
@@ -101,8 +101,8 @@ public class CourseDao {
 		return succes;
 	}
 	
-	//mise à jour d'une course
-	public boolean UpdateCourse (Course course){
+	//Mise à jour d'un cours
+	public boolean updateCourse (Course course){
 		
 		session = HibernateUtil.getSessionFactory().openSession();
 		boolean succes;
@@ -140,5 +140,45 @@ public class CourseDao {
 		
 		return succes;
 	}
+	
+	//Suppression d'un cours
+		public boolean deleteCourse (Course course){
+			
+			session = HibernateUtil.getSessionFactory().openSession();
+			boolean succes;
+			try {
+				session.beginTransaction();
+				session.delete(course);
+				session.getTransaction().commit();
+				succes = true;
+			}
+			
+			catch (HibernateException he) {
+		        he.printStackTrace();
+		        succes = false;
+		        if(session.getTransaction() != null) {
+		            try {
+		                session.getTransaction().rollback();
+		            }catch(HibernateException he2) {
+		            	he2.printStackTrace(); 
+		            }
+		        }
+			}
+			
+			finally {
+			
+				if(session != null) {
+		            try { 
+		            	session.close();
+		            }catch(HibernateException he2) {
+		            	he2.printStackTrace(); 
+		            }
+		                
+				}
+		
+			}
+			
+			return succes;
+		}
 
 }

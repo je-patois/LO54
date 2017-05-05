@@ -62,7 +62,7 @@ public class ClientDao {
 	
 	
 	//ajout d'un client
-	public boolean AddClient (Client client){
+	public boolean addClient (Client client){
 		
 		session = HibernateUtil.getSessionFactory().openSession();
 		boolean succes;
@@ -104,7 +104,7 @@ public class ClientDao {
 	
 	
 	//mise à jour d'un client
-	public boolean UpdateCourse (Client client){
+	public boolean updateClient (Client client){
 		
 		session = HibernateUtil.getSessionFactory().openSession();
 		boolean succes;
@@ -143,5 +143,43 @@ public class ClientDao {
 		return succes;
 	}
 	
+	//Suppression d'un client
+	public boolean deleteClient (Client client){
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		boolean succes;
+		try {
+			session.beginTransaction();
+			session.delete(client);
+			session.getTransaction().commit();
+			succes = true;
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        succes = false;
+	        if(session.getTransaction() != null) {
+	            try {
+	                session.getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(session != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
 	
+		}
+		
+		return succes;
+	}
 }
