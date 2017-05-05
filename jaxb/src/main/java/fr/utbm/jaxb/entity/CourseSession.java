@@ -1,4 +1,4 @@
-package fr.utbm.entity;
+package fr.utbm.jaxb.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
