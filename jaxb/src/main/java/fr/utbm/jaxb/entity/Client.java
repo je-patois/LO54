@@ -94,6 +94,12 @@ public class Client implements Serializable{
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", lastname=" + lastname + ", firstname=" + firstname + ", adress=" + adress
+				+ ", phone=" + phone + ", email=" + email + ", courseSessionId=" + courseSessionId + "]";
+	}
+
 	/*public Integer getCourseSessionId() {
 		return courseSessionId;
 	}

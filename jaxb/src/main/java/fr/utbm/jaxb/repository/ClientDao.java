@@ -28,7 +28,7 @@ public class ClientDao {
 		
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("* from client");
+			Query query = session.createQuery("from Client");
 			listeClient = query.list();
 			session.getTransaction().commit();
 		}

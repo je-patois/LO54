@@ -27,7 +27,7 @@ public class CourseDao {
 		
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("* from course");
+			Query query = session.createQuery("from Course");
 			listeCourse = query.list();
 			session.getTransaction().commit();
 		}
