@@ -41,7 +41,7 @@ Contributor(s):
 -->
 <hibernate-configuration>
   <session-factory>
-    <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property> <!-- Je suis un commentaire -->
+    <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="connection.url">jdbc:mysql://localhost:3306/gestion_formation?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="connection.username">LO54</property>

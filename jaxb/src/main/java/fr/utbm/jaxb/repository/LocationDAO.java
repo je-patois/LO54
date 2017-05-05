@@ -95,75 +95,75 @@ public class LocationDAO implements Serializable {
 	}
 	
 	// Met à jour une location
-		public boolean updateLocation(CourseSession courseSession) {
-			setSession(HibernateUtil.getSessionFactory().openSession());
-			Boolean success;
-		    try {
-		        getSession().beginTransaction();
-	            getSession().merge(courseSession);
-		        getSession().getTransaction().commit();
-		        success = true;
-			}
-			catch (HibernateException he) {
-		        he.printStackTrace();
-		        success = false;
-		        if(getSession().getTransaction() != null) {
-		            try {
-		            	getSession().getTransaction().rollback();
-		            } catch(HibernateException he2) {
-		            	he2.printStackTrace();
-		            }
-		        }
-			}
-			finally {
-		        if(getSession() != null) {
-		            try {
-		            	getSession().close();
-		            } catch(Exception e) {
-		            	System.out.println(e);
-		            }
+	public boolean updateLocation(CourseSession courseSession) {
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		Boolean success;
+	    try {
+	        getSession().beginTransaction();
+            getSession().merge(courseSession);
+	        getSession().getTransaction().commit();
+	        success = true;
+		}
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        success = false;
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            } catch(HibernateException he2) {
+	            	he2.printStackTrace();
 	            }
-	       }
-	       return success;
+	        }
+		}
+		finally {
+	        if(getSession() != null) {
+	            try {
+	            	getSession().close();
+	            } catch(Exception e) {
+	            	System.out.println(e);
+	            }
+            }
+       }
+       return success;
+	}
+	
+	//Suppression d'une location
+	public boolean deleteClient (Location location){
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		boolean succes;
+		try {
+			session.beginTransaction();
+			session.delete(location);
+			session.getTransaction().commit();
+			succes = true;
 		}
 		
-		//Suppression d'une location
-		public boolean deleteClient (Location location){
-			
-			session = HibernateUtil.getSessionFactory().openSession();
-			boolean succes;
-			try {
-				session.beginTransaction();
-				session.delete(location);
-				session.getTransaction().commit();
-				succes = true;
-			}
-			
-			catch (HibernateException he) {
-		        he.printStackTrace();
-		        succes = false;
-		        if(session.getTransaction() != null) {
-		            try {
-		                session.getTransaction().rollback();
-		            }catch(HibernateException he2) {
-		            	he2.printStackTrace(); 
-		            }
-		        }
-			}
-			
-			finally {
-			
-				if(session != null) {
-		            try { 
-		            	session.close();
-		            }catch(HibernateException he2) {
-		            	he2.printStackTrace(); 
-		            }
-		                
-				}
-		
-			}
-			
-			return succes;
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        succes = false;
+	        if(session.getTransaction() != null) {
+	            try {
+	                session.getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
 		}
+		
+		finally {
+		
+			if(session != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		
+		return succes;
+	}
 }
