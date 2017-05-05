@@ -58,4 +58,36 @@ public class CourseSessionDAO implements Serializable {
        }
        return courseSessionList;
 	}
+	
+	public Boolean addCourseSession(CourseSession courseSession) {
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		Boolean success;
+	    try {
+	        getSession().beginTransaction();
+            getSession().persist(courseSession);
+	        getSession().getTransaction().commit();
+	        success = true;
+		}
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        success = false;
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            } catch(HibernateException he2) {
+	            	he2.printStackTrace();
+	            }
+	        }
+		}
+		finally {
+	        if(getSession() != null) {
+	            try {
+	            	getSession().close();
+	            } catch(Exception e) {
+	            	System.out.println(e);
+	            }
+            }
+       }
+       return success;
+	}
 }
