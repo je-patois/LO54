@@ -61,7 +61,7 @@ public class CourseDao implements Serializable{
 	}
 
 	//Récupère un cours avec son id
-	public Course getClientById (String id){
+	public Course getCourseById (String id){
 		session = HibernateUtil.getSessionFactory().openSession();
 		Course cours = new Course();
 		

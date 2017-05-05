@@ -62,6 +62,43 @@ public class CourseSessionDAO implements Serializable {
        return courseSessionList;
 	}
 	
+	public CourseSession getCourseSessionById(int id) {
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		CourseSession courseSession = new CourseSession();
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("from CourseSession where id = :id");
+			query.setParameter("id", id);
+			courseSession = (CourseSession) query.uniqueResult();
+			getSession().getTransaction().commit();
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(getSession() != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		return courseSession;
+	}
+	
 	// Ajoute une session de cours
 	public boolean addCourseSession(CourseSession courseSession) {
 		setSession(HibernateUtil.getSessionFactory().openSession());
@@ -131,21 +168,21 @@ public class CourseSessionDAO implements Serializable {
 	//Suppression d'une session de cours
 	public boolean deleteClient (CourseSession courseSession){
 		
-		session = HibernateUtil.getSessionFactory().openSession();
+		setSession(HibernateUtil.getSessionFactory().openSession());
 		boolean succes;
 		try {
-			session.beginTransaction();
-			session.delete(courseSession);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			getSession().delete(courseSession);
+			getSession().getTransaction().commit();
 			succes = true;
 		}
 		
 		catch (HibernateException he) {
 	        he.printStackTrace();
 	        succes = false;
-	        if(session.getTransaction() != null) {
+	        if(getSession().getTransaction() != null) {
 	            try {
-	                session.getTransaction().rollback();
+	            	getSession().getTransaction().rollback();
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
 	            }
@@ -154,9 +191,9 @@ public class CourseSessionDAO implements Serializable {
 		
 		finally {
 		
-			if(session != null) {
+			if(getSession() != null) {
 	            try { 
-	            	session.close();
+	            	getSession().close();
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
 	            }

@@ -61,6 +61,43 @@ public class LocationDAO implements Serializable {
        return locationList;
 	}
 	
+	public Location getLocationById(int id) {
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		Location location = new Location();
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("from Location where id = :id");
+			query.setParameter("id", id);
+			location = (Location) query.uniqueResult();
+			getSession().getTransaction().commit();
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(getSession() != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		return location;
+	}
+	
 	// Ajoute une location
 	public boolean addLocation(Location location) {
 		setSession(HibernateUtil.getSessionFactory().openSession());
@@ -130,21 +167,21 @@ public class LocationDAO implements Serializable {
 	//Suppression d'une location
 	public boolean deleteClient (Location location){
 		
-		session = HibernateUtil.getSessionFactory().openSession();
+		setSession(HibernateUtil.getSessionFactory().openSession());
 		boolean succes;
 		try {
-			session.beginTransaction();
-			session.delete(location);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			getSession().delete(location);
+			getSession().getTransaction().commit();
 			succes = true;
 		}
 		
 		catch (HibernateException he) {
 	        he.printStackTrace();
 	        succes = false;
-	        if(session.getTransaction() != null) {
+	        if(getSession().getTransaction() != null) {
 	            try {
-	                session.getTransaction().rollback();
+	            	getSession().getTransaction().rollback();
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
 	            }
@@ -153,9 +190,9 @@ public class LocationDAO implements Serializable {
 		
 		finally {
 		
-			if(session != null) {
+			if(getSession() != null) {
 	            try { 
-	            	session.close();
+	            	getSession().close();
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
 	            }
