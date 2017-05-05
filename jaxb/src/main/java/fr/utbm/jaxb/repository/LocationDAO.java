@@ -13,7 +13,7 @@ import fr.utbm.jaxb.util.HibernateUtil;
 
 public class LocationDAO implements Serializable {
 
-	private Session session = HibernateUtil.getSessionFactory().openSession();
+	private Session session;
 	
 	public LocationDAO() {
 		
@@ -28,7 +28,8 @@ public class LocationDAO implements Serializable {
 	}
 
 	public List<Location> getLocation() {
-		List<Location> locationList = new ArrayList();
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		List<Location> locationList = new ArrayList<Location>();
 	    try {
 	        getSession().beginTransaction();
             Query query = getSession().createQuery("from Location");

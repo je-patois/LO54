@@ -14,7 +14,7 @@ import fr.utbm.jaxb.util.HibernateUtil;
 
 public class CourseSessionDAO implements Serializable {
 
-	private Session session = HibernateUtil.getSessionFactory().openSession();
+	private Session session;
 	
 	public CourseSessionDAO() {
 		
@@ -29,7 +29,8 @@ public class CourseSessionDAO implements Serializable {
 	}
 	
 	public List<CourseSession> getCourseSession() {
-		List<CourseSession> courseSessionList = new ArrayList();
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		List<CourseSession> courseSessionList = new ArrayList<CourseSession>();
 	    try {
 	        getSession().beginTransaction();
             Query query = getSession().createQuery("from CourseSession");
