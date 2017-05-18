@@ -5,7 +5,7 @@
   <groupId>fr.utbm</groupId>
   <artifactId>jaxb</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>jaxb</name>
   <url>http://maven.apache.org</url>
@@ -36,6 +36,12 @@
     	<artifactId>mysql-connector-java</artifactId>
     	<version>6.0.6</version>
 	</dependency>
+	<dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-web-api</artifactId>
+        <version>7.0</version>
+        <scope>provided</scope>
+    </dependency>
 	
     
   </dependencies>
