@@ -2,19 +2,15 @@ package fr.utbm.jaxb;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-
-import fr.utbm.jaxb.entity.Client;
-import fr.utbm.jaxb.repository.ClientDao;
-import fr.utbm.jaxb.util.HibernateUtil;
+import fr.utbm.jaxb.controller.CourseController;
+import fr.utbm.jaxb.entity.Course;
 
 public class App 
 {
 	public static void main( String[] args ) {
 		// Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		ClientDao myClientDao = new ClientDao();
+		/*ClientDao myClientDao = new ClientDao();*/
 		
 		//Client myNewClient = new Client("Oui", "Aloïs", "1 rue de l'UTBM", "06.06.06.06.06", "alois.kende@utbm.fr");
 		//myClientDao.addClient(myNewClient);
@@ -24,13 +20,20 @@ public class App
 		
 		//myClientDao.deleteClient(myNewClient);
 		
-		System.out.println(myClientDao.getClientById(2).toString());
+		/*System.out.println(myClientDao.getClientById(2).toString());
 		
 		
 		
 		List<Client> myList = myClientDao.getClient();
 		for(Client myClient: myList) {
             System.out.println(myClient.toString());
+        }*/
+		
+		CourseController myController = new CourseController();
+		List<Course> myList = myController.getAllCourses();
+		for(Course myCourse: myList) {
+            System.out.println(myCourse.toString());
         }
+		
 	}
 }

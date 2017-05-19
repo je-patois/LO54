@@ -56,7 +56,6 @@ public class CourseDao implements Serializable{
 			}
 	
 		}
-		
 		return listeCourse;
 	}
 

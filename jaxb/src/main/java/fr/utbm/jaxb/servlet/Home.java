@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet( name="home", urlPatterns = "/home" )
-public class HomeServlet extends HttpServlet implements Serializable {
+public class Home extends HttpServlet implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +17,7 @@ public class HomeServlet extends HttpServlet implements Serializable {
 	    response.setContentType("text/html");
 	    java.io.PrintWriter out = response.getWriter();
 	    //out.println("<html><body>Hello</body></html>");
-	    request.getRequestDispatcher("home.html").forward(request, response);
+	    request.getRequestDispatcher("home.jsp").forward(request, response);
 	    //out.println("<html><body><a href>List of films</a></body></html>");
 	    out.close();
 	}
