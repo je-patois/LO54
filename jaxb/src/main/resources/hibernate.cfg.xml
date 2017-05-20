@@ -43,7 +43,7 @@ Contributor(s):
   <session-factory>
     <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/gestion_formation?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/gestion-formation?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="connection.username">LO54</property>
     <property name="connection.password">LO54</property>
     <property name="connection.useSSL">false</property>
@@ -54,8 +54,7 @@ Contributor(s):
     <property name="hbm2ddl.auto">validate</property>
     <mapping class="fr.utbm.jaxb.entity.Location"/>
     <mapping class="fr.utbm.jaxb.entity.Course"/>
-    <mapping class="fr.utbm.jaxb.entity.Client"/>
     <mapping class="fr.utbm.jaxb.entity.CourseSession"/>
-    
+    <mapping class="fr.utbm.jaxb.entity.Client"/>
   </session-factory>
 </hibernate-configuration>

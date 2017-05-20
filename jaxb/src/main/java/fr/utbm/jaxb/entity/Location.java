@@ -1,7 +1,6 @@
 package fr.utbm.jaxb.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,6 +15,8 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Location implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	public Location() {
 		
 	}
@@ -28,11 +29,15 @@ public class Location implements Serializable {
 	@Column(name="CITY")
 	private String city;
 	
-	@ManyToMany
+	/*@ManyToMany
 	  @JoinTable(
 	      name="CourseSession",
 	      joinColumns=@JoinColumn(name="LOCATION_ID", referencedColumnName="id"), inverseJoinColumns=@JoinColumn(name="COURSE_CODE", referencedColumnName="code"))
-	  private List<Course> courses;
+	  private List<Course> courses;*/
+	
+	/*@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ID")
+	private Set<CourseSession> courseSessions;*/
 
 	public Integer getId() {
 		return id;
@@ -52,5 +57,13 @@ public class Location implements Serializable {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Location [id=" + id + ", city=" + city + "]";
+	}
+	
+	
 	
 }

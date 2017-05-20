@@ -1,14 +1,14 @@
 package fr.utbm.jaxb;
 
-import java.util.List;
+import org.hibernate.Session;
 
-import fr.utbm.jaxb.controller.CourseController;
-import fr.utbm.jaxb.entity.Course;
+import fr.utbm.jaxb.controller.CourseSessionController;
+import fr.utbm.jaxb.util.HibernateUtil;
 
 public class App 
 {
 	public static void main( String[] args ) {
-		// Session session = HibernateUtil.getSessionFactory().openSession();
+		//Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		/*ClientDao myClientDao = new ClientDao();*/
 		
@@ -29,11 +29,24 @@ public class App
             System.out.println(myClient.toString());
         }*/
 		
-		CourseController myController = new CourseController();
+		/*CourseController myController = new CourseController();
 		List<Course> myList = myController.getAllCourses();
 		for(Course myCourse: myList) {
             System.out.println(myCourse.toString());
-        }
+        }*/
 		
+		/*CourseSessionController myCourseSessionController = new CourseSessionController();
+		CourseSession myCourseSession = myCourseSessionController.getCourseSessionByCode("LO54");
+		System.out.println(myCourseSession.toString());*/
+		
+		/*CourseSessionController myCourseSessionController = new CourseSessionController();
+		List<CourseSession> myCourseSessions = myCourseSessionController.getCourseSessionByCode("LO54");
+		for(CourseSession myCourseSession: myCourseSessions) {
+            System.out.println(myCourseSession.getCourseCode());
+        }*/
+		
+		/*CourseSessionController myCourseSessionController = new CourseSessionController();
+		Object myObject = myCourseSessionController.getCourseSessionWithLocation();
+		System.out.println(myObject.toString());*/
 	}
 }

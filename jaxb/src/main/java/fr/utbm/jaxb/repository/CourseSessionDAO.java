@@ -8,7 +8,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import fr.utbm.jaxb.entity.Client;
 import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.entity.Location;
 import fr.utbm.jaxb.util.HibernateUtil;
@@ -31,6 +30,38 @@ public class CourseSessionDAO implements Serializable {
 	}
 	
 	// Récupère toutes les informations de toutes les sessions de cours
+	public List<Object> getCourseSessionWithLocation() {
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		List<Object> courseSessionList = new ArrayList<Object>();
+	    try {
+	        getSession().beginTransaction();
+            Query query = getSession().createQuery("select l.city from CourseSession cs inner join cs.location l");
+            courseSessionList = query.list();
+	        getSession().getTransaction().commit();
+		}
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            } catch(HibernateException he2) {
+	            	he2.printStackTrace();
+	            }
+	        }
+		}
+		finally {
+	        if(getSession() != null) {
+	            try {
+	            	getSession().close();
+	            } catch(Exception e) {
+	            	System.out.println(e);
+	            }
+            }
+       }
+	    
+       return courseSessionList;
+	}
+	
 	public List<CourseSession> getCourseSession() {
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		List<CourseSession> courseSessionList = new ArrayList<CourseSession>();
@@ -62,7 +93,7 @@ public class CourseSessionDAO implements Serializable {
        return courseSessionList;
 	}
 	
-	public CourseSession getCourseSessionById(int id) {
+	public CourseSession getCourseSessionByID(int id) {
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		CourseSession courseSession = new CourseSession();
 		try {
@@ -97,6 +128,44 @@ public class CourseSessionDAO implements Serializable {
 	
 		}
 		return courseSession;
+	}
+	
+	public List<CourseSession> getCourseSessionByCode(String code) {
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		List<CourseSession> courseSessions = new ArrayList<CourseSession>();
+		try {
+			getSession().beginTransaction();
+			//Query query = getSession().createQuery("from CourseSession where courseCode = :code");
+			Query query = getSession().createQuery("from CourseSession where COURSE_CODE = :code");
+			query.setParameter("code", code);
+			courseSessions = query.list();
+			getSession().getTransaction().commit();
+		}
+		
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		
+		finally {
+		
+			if(getSession() != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	                
+			}
+	
+		}
+		return courseSessions;
 	}
 	
 	// Ajoute une session de cours

@@ -1,6 +1,7 @@
 package fr.utbm.jaxb.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Client implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	public Client() {
 		
@@ -53,6 +56,13 @@ public class Client implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="COURSE_SESSION_ID")
 	private CourseSession courseSessionId;
+	
+	/*@OneToMany
+    @JoinColumn(name="CLIENTS", referencedColumnName="id")
+    private Collection<CourseSession> courseSession;*/
+	
+	/*@Transient
+	private Integer courseSessionId;*/
 
 	public Integer getId() {
 		return id;
@@ -102,14 +112,26 @@ public class Client implements Serializable{
 		this.email = email;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", lastname=" + lastname + ", firstname=" + firstname + ", adress=" + adress
-				+ ", phone=" + phone + ", email=" + email + ", courseSessionId=" + courseSessionId + "]";
+				+ ", phone=" + phone + ", email=" + email + ", courseSession=" + courseSessionId + "]";
 	}
 
-	/*public Integer getCourseSessionId() {
+	public CourseSession getCourseSessionId() {
 		return courseSessionId;
+	}
+
+	public void setCourseSessionId(CourseSession courseSessionId) {
+		this.courseSessionId = courseSessionId;
+	}
+	
+	
+
+	/*public Integer getCourseSessionId() {
+		return courseSession.getId();
 	}
 
 	public void setCourseSessionId(Integer courseSessionId) {
