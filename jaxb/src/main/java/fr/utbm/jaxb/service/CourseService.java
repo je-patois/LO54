@@ -32,4 +32,9 @@ public class CourseService implements Serializable {
 		List<Course> myList = courseDao.getCourse();
 		return myList;
 	}
+	
+	public boolean addCourse(Course course) {
+		boolean success = courseDao.addCourse(course);
+		return success;
+	}
 }

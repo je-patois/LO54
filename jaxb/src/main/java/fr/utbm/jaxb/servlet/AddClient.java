@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.utbm.jaxb.entity.Client;
 import fr.utbm.jaxb.repository.ClientDao;
 
-@WebServlet( name="addclient", urlPatterns = "/addclient" )
+@WebServlet(name="addclient", urlPatterns = "/addclient")
 public class AddClient extends HttpServlet implements Serializable {
 
 	private static final long serialVersionUID = 1L;

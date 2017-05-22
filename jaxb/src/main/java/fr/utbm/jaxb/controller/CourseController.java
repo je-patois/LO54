@@ -32,4 +32,9 @@ public class CourseController implements Serializable {
 		List<Course> myList = courseService.getAllCourses();
 		return myList;
 	}
+	
+	public boolean addCourse(Course course) {
+		boolean success = courseService.addCourse(course);
+		return success;
+	}
 }

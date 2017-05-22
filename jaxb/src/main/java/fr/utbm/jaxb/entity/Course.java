@@ -18,6 +18,11 @@ public class Course implements Serializable {
 		
 	}
 	
+	public Course(String code, String title) {
+		this.code = code;
+		this.title = title;
+	}
+	
 	@Id
 	@Column(name="CODE")
 	private String code;

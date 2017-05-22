@@ -17,6 +17,7 @@
 			    <c:out value="${course.getCode()}"/> - <c:out value="${course.getTitle()}"/>     <a href="http://localhost:8080/jaxb/listcoursesession?course=${course.getCode()}">S'inscrire au cours</a><br/>
 			</c:forEach>
 		</ul>
-       	<a href="addclient.html">Add a new client</a>
+       	<a href="addclient.html">Add a new client</a><br/>
+       	<a href="http://localhost:8080/jaxb/addcourse">Add a new course</a>
     </body>
 </html>
