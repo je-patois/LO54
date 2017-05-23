@@ -7,7 +7,7 @@
 <title>Add a new course</title>
 </head>
 	<body>
-		<h1>Add a ew course</h1>
+		<h1>Add a new course</h1>
 		<form action="addcourse" method="post">
 	       	Code: <input type="text" name="code"/><br/>
 	       	Title: <input type="text" name="title"/><br/>

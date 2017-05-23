@@ -14,5 +14,8 @@
 	<c:forEach var="courseSession" items="${sessions}">
 		<c:out value="${courseSession.getId()}"/> (<c:out value="${courseSession.course.getCode()}"/>) - <c:out value="${courseSession.getStartDate()}"/> -> <c:out value="${courseSession.getEndDate()}"/> à <c:out value="${courseSession.location.getCity()}"/>     <a href="http://localhost:8080/jaxb/sessioninscription?course=<c:out value="${courseSession.course.getCode()}"/>&session=<c:out value="${courseSession.getId()}"/>">S'inscrire à la session</a><br/>
 	</c:forEach>
+	
+	<br/><br/>
+	<a href="http://localhost:8080/jaxb/addcoursesession?course=<%= request.getParameter("course") %>">Add a course session</a>
 </body>
 </html>
