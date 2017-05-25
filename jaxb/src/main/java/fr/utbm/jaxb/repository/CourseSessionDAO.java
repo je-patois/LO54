@@ -2,25 +2,42 @@ package fr.utbm.jaxb.repository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import fr.utbm.jaxb.entity.Course;
 import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.entity.Location;
 import fr.utbm.jaxb.util.HibernateUtil;
 
+/**
+ * [Couche - DAO] - Entité CourseSession
+ * @author Exige
+ *
+ */
 public class CourseSessionDAO implements Serializable {
 
+	// --------- DEFINITION DES VARIABLES ---------
+	private static final long serialVersionUID = 1L;
 	private Session session;
 	
-	// Constructeur par défaut
+	
+	// --------- CONSTRUCTEURS ---------
+	
+	/** 
+	 * Constructeur par défaut
+	 */
 	public CourseSessionDAO() {
 		
 	}
 
+	
+	// --------- GETTERS & SETTERS ---------
+	
 	public Session getSession() {
 		return session;
 	}
@@ -29,42 +46,18 @@ public class CourseSessionDAO implements Serializable {
 		this.session = session;
 	}
 	
-	// Récupère toutes les informations de toutes les sessions de cours
-	public List<Object> getCourseSessionWithLocation() {
-		setSession(HibernateUtil.getSessionFactory().openSession());
-		List<Object> courseSessionList = new ArrayList<Object>();
-	    try {
-	        getSession().beginTransaction();
-            Query query = getSession().createQuery("select l.city from CourseSession cs inner join cs.location l");
-            courseSessionList = query.list();
-	        getSession().getTransaction().commit();
-		}
-		catch (HibernateException he) {
-	        he.printStackTrace();
-	        if(getSession().getTransaction() != null) {
-	            try {
-	            	getSession().getTransaction().rollback();
-	            } catch(HibernateException he2) {
-	            	he2.printStackTrace();
-	            }
-	        }
-		}
-		finally {
-	        if(getSession() != null) {
-	            try {
-	            	getSession().close();
-	            } catch(Exception e) {
-	            	System.out.println(e);
-	            }
-            }
-       }
-	    
-       return courseSessionList;
-	}
 	
+	// --------- METHODES ---------
+	
+	/**
+	 * Récupère et renvoie toutes les sessions de cours
+	 * @return
+	 */
 	public List<CourseSession> getCourseSession() {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		List<CourseSession> courseSessionList = new ArrayList<CourseSession>();
+		
 	    try {
 	        getSession().beginTransaction();
             Query query = getSession().createQuery("from CourseSession");
@@ -93,9 +86,53 @@ public class CourseSessionDAO implements Serializable {
        return courseSessionList;
 	}
 	
+	/** 
+	 * Récupère et renvoie les sessions de cours avec le nom de ville associé
+	 * @return
+	 */
+	public List<Object> getCourseSessionWithLocation() {
+		
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		List<Object> courseSessionList = new ArrayList<Object>();
+		
+	    try {
+	        getSession().beginTransaction();
+            Query query = getSession().createQuery("select l.city from CourseSession cs inner join cs.location l");
+            courseSessionList = query.list();
+	        getSession().getTransaction().commit();
+		}
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            } catch(HibernateException he2) {
+	            	he2.printStackTrace();
+	            }
+	        }
+		}
+		finally {
+	        if(getSession() != null) {
+	            try {
+	            	getSession().close();
+	            } catch(Exception e) {
+	            	System.out.println(e);
+	            }
+            }
+       }
+       return courseSessionList;
+	}
+	
+	/**
+	 * Récupère et renvoie la session de cours dont l'ID est donné en paramètre
+	 * @param id
+	 * @return
+	 */
 	public CourseSession getCourseSessionByID(int id) {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		CourseSession courseSession = new CourseSession();
+		
 		try {
 			getSession().beginTransaction();
 			Query query = getSession().createQuery("from CourseSession where id = :id");
@@ -103,7 +140,6 @@ public class CourseSessionDAO implements Serializable {
 			courseSession = (CourseSession) query.uniqueResult();
 			getSession().getTransaction().commit();
 		}
-		
 		catch (HibernateException he) {
 	        he.printStackTrace();
 	        if(getSession().getTransaction() != null) {
@@ -114,25 +150,28 @@ public class CourseSessionDAO implements Serializable {
 	            }
 	        }
 		}
-		
 		finally {
-		
 			if(getSession() != null) {
 	            try { 
 	            	session.close();
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
-	            }
-	                
+	            }   
 			}
-	
 		}
 		return courseSession;
 	}
 	
+	/**
+	 * Récupère et renvoie les sessions de cours relatives au cours donné en paramètre
+	 * @param code
+	 * @return
+	 */
 	public List<CourseSession> getCourseSessionByCode(String code) {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		List<CourseSession> courseSessions = new ArrayList<CourseSession>();
+		
 		try {
 			getSession().beginTransaction();
 			//Query query = getSession().createQuery("from CourseSession where courseCode = :code");
@@ -141,7 +180,6 @@ public class CourseSessionDAO implements Serializable {
 			courseSessions = query.list();
 			getSession().getTransaction().commit();
 		}
-		
 		catch (HibernateException he) {
 	        he.printStackTrace();
 	        if(getSession().getTransaction() != null) {
@@ -152,26 +190,106 @@ public class CourseSessionDAO implements Serializable {
 	            }
 	        }
 		}
-		
 		finally {
-		
 			if(getSession() != null) {
 	            try { 
 	            	session.close();
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
-	            }
-	                
+	            }     
 			}
-	
 		}
 		return courseSessions;
 	}
 	
-	// Ajoute une session de cours
+	/** 
+	 * Récupère et renvoie les sessions de cours se déroulant à la date donnée en paramètre
+	 * @param date
+	 * @return
+	 */
+	public List<CourseSession> getCourseSessionByDate(Date date) {
+		
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		List<CourseSession> courseSessions = new ArrayList<CourseSession>();
+		
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("from CourseSession where startDate <= :date and endDate >= :date");
+			query.setParameter("date", date);
+			courseSessions = query.list();
+			getSession().getTransaction().commit();
+		}
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		finally {
+			if(getSession() != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }   
+			}
+		}
+		return courseSessions;
+	}
+	
+	/**
+	 * Récupère et renvoie les sessions de cours se déroulant dans la ville donnée en paramètre
+	 * @param locationId
+	 * @return
+	 */
+	public List<CourseSession> getCourseSessionByLocation(Integer locationId) {
+		
+		setSession(HibernateUtil.getSessionFactory().openSession());
+		List<CourseSession> courseSessions = new ArrayList<CourseSession>();
+		
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("from CourseSession where LOCATION_ID = :locationId");
+			query.setParameter("locationId", locationId);
+			courseSessions = query.list();
+			getSession().getTransaction().commit();
+		}
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(getSession().getTransaction() != null) {
+	            try {
+	            	getSession().getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		finally {
+			if(getSession() != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }  
+			}
+		}
+		return courseSessions;
+	}
+	
+	/** 
+	 * Ajoute une session de cours en base de données en avertisssant de la réussite ou non de l'opération
+	 * @param courseSession
+	 * @return
+	 */
 	public boolean addCourseSession(CourseSession courseSession) {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		Boolean success;
+		
 	    try {
 	        getSession().beginTransaction();
             getSession().persist(courseSession);
@@ -201,10 +319,16 @@ public class CourseSessionDAO implements Serializable {
        return success;
 	}
 	
-	// Met à jour une session de cours
+	/**
+	 * Met à jour une session de cours en base de données en avertissant du succès ou non de l'opération
+	 * @param location
+	 * @return
+	 */
 	public boolean updateCourseSession(Location location) {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		Boolean success;
+		
 	    try {
 	        getSession().beginTransaction();
             getSession().persist(location);
@@ -234,7 +358,11 @@ public class CourseSessionDAO implements Serializable {
        return success;
 	}
 		
-	//Suppression d'une session de cours
+	/**
+	 * Supprime une session de cours en avertissant du succès ou non de l'opération
+	 * @param courseSession
+	 * @return
+	 */
 	public boolean deleteClient (CourseSession courseSession){
 		
 		setSession(HibernateUtil.getSessionFactory().openSession());

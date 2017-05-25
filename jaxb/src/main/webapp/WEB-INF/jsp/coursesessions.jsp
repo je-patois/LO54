@@ -6,16 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Course sessions</title>
+<title>Sessions de cours</title>
 </head>
 <body>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 	<h1>Sessions disponibles pour <% out.print(request.getParameter("course")); %></h1>
 	<c:forEach var="courseSession" items="${sessions}">
-		<c:out value="${courseSession.getId()}"/> (<c:out value="${courseSession.course.getCode()}"/>) - <c:out value="${courseSession.getStartDate()}"/> -> <c:out value="${courseSession.getEndDate()}"/> à <c:out value="${courseSession.location.getCity()}"/>     <a href="http://localhost:8080/jaxb/sessioninscription?course=<c:out value="${courseSession.course.getCode()}"/>&session=<c:out value="${courseSession.getId()}"/>">S'inscrire à la session</a><br/>
-	</c:forEach>
-	
+		<c:out value="${courseSession.getId()}"/> (<c:out value="${courseSession.course.getCode()}"/>) - <fmt:formatDate pattern="yyyy-MM-dd" value="${courseSession.getStartDate()}"/> -> <fmt:formatDate pattern="yyyy-MM-dd" value="${courseSession.getEndDate()}"/> à <c:out value="${courseSession.location.getCity()}"/>     <a href="http://localhost:8080/jaxb/sessioninscription?course=<c:out value="${courseSession.course.getCode()}"/>&session=<c:out value="${courseSession.getId()}"/>">S'inscrire à la session</a> <a href="http://localhost:8080/jaxb/listregistered?course=<c:out value="${courseSession.course.getCode()}"/>&session=<c:out value="${courseSession.getId()}"/>">Voir les inscrits</a><br/>
+	</c:forEach>	
 	<br/><br/>
-	<a href="http://localhost:8080/jaxb/addcoursesession?course=<%= request.getParameter("course") %>">Add a course session</a>
+	<a href="http://localhost:8080/jaxb">Retourner à la page principale</a> <a href="http://localhost:8080/jaxb/addcoursesession?course=<%= request.getParameter("course") %>">Ajouter une session de cours</a>
 </body>
 </html>

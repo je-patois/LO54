@@ -1,7 +1,6 @@
 package fr.utbm.jaxb.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,49 +10,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+/**
+ * [Entité] - Client
+ */
 @Entity
 public class Client implements Serializable{
-
+	
+	
+	// --------- DEFINITION DES VARIABLES ---------
+	
 	private static final long serialVersionUID = 1L;
-
-	public Client() {
-		
-	}
 	
-	public Client(String lastname, String firstname, String adress, String phone, String email) {
-		this.lastname = lastname;
-		this.firstname = firstname;
-		this.adress = adress;
-		this.phone = phone;
-		this.email = email;
-	}
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ID")
+	@Id // Identifiant en BDD
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment en BDD
+	@Column(name="ID") // Nom de la colonne en BDD
 	private Integer id;
 	
-	@Column(name="LASTNAME")
+	@Column(name="LASTNAME") // Nom de la colonne en BDD
 	private String lastname;
 	
-	@Column(name="FIRSTNAME")
+	@Column(name="FIRSTNAME") // Nom de la colonne en BDD
 	private String firstname;
 	
-	@Column(name="ADRESS")
+	@Column(name="ADRESS") // Nom de la colonne en BDD
 	private String adress;
 	
-	@Column(name="PHONE")
+	@Column(name="PHONE") // Nom de la colonne en BDD
 	private String phone;
 	
-	@Column(name="EMAIL")
+	@Column(name="EMAIL") // Nom de la colonne en BDD
 	private String email;
 	
 	/*@Column(name="COURSE_SESSION_ID")
 	private Integer courseSessionId;*/
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="COURSE_SESSION_ID")
 	private CourseSession courseSessionId;
 	
@@ -64,6 +59,36 @@ public class Client implements Serializable{
 	/*@Transient
 	private Integer courseSessionId;*/
 
+	
+	
+	// --------- CONSTRUCTEURS ---------
+	
+	/**
+	 * Constructeur par défaut
+	 */
+	public Client() {
+		
+	}
+	
+	/**
+	 * Constructeur complet
+	 * @param lastname
+	 * @param firstname
+	 * @param adress
+	 * @param phone
+	 * @param email
+	 */
+	public Client(String lastname, String firstname, String adress, String phone, String email) {
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.adress = adress;
+		this.phone = phone;
+		this.email = email;
+	}
+	
+	
+	// --------- GETTERS & SETTERS, toString ---------
+	
 	public Integer getId() {
 		return id;
 	}
@@ -112,14 +137,6 @@ public class Client implements Serializable{
 		this.email = email;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Client [id=" + id + ", lastname=" + lastname + ", firstname=" + firstname + ", adress=" + adress
-				+ ", phone=" + phone + ", email=" + email + ", courseSession=" + courseSessionId + "]";
-	}
-
 	public CourseSession getCourseSessionId() {
 		return courseSessionId;
 	}
@@ -127,8 +144,12 @@ public class Client implements Serializable{
 	public void setCourseSessionId(CourseSession courseSessionId) {
 		this.courseSessionId = courseSessionId;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", lastname=" + lastname + ", firstname=" + firstname + ", adress=" + adress
+				+ ", phone=" + phone + ", email=" + email + ", courseSession=" + courseSessionId + "]";
+	}	
 
 	/*public Integer getCourseSessionId() {
 		return courseSession.getId();
@@ -137,7 +158,4 @@ public class Client implements Serializable{
 	public void setCourseSessionId(Integer courseSessionId) {
 		this.courseSessionId = courseSessionId;
 	}*/
-	
-	
-	
 }

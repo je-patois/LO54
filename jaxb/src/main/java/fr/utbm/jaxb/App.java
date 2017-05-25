@@ -1,9 +1,13 @@
 package fr.utbm.jaxb;
 
-import org.hibernate.Session;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-import fr.utbm.jaxb.controller.CourseSessionController;
-import fr.utbm.jaxb.util.HibernateUtil;
+import fr.utbm.jaxb.controller.CourseController;
+import fr.utbm.jaxb.entity.Course;
+
+// ZONE DE TEST
 
 public class App 
 {
@@ -48,5 +52,49 @@ public class App
 		/*CourseSessionController myCourseSessionController = new CourseSessionController();
 		Object myObject = myCourseSessionController.getCourseSessionWithLocation();
 		System.out.println(myObject.toString());*/
+		
+		/*CourseController courseController = new CourseController();
+		List<Course> myList = courseController.getCourseFilteredByTitle("Conception");
+		for(Course myCourse: myList) {
+            System.out.println(myCourse.toString());
+        }*/
+		
+		/*CourseSessionController courseSessionController = new CourseSessionController();
+		String date = "2017-05-25";
+		//System.out.println(date);
+		List<CourseSession> myList = new ArrayList<CourseSession>();
+		try {
+			myList = courseSessionController.getCourseSessionByDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(CourseSession myCourseSession: myList) {
+            System.out.println(myCourseSession.toString());
+        }*/
+		
+		/*List<String> myCourses = new ArrayList<String>();
+		myCourses.add("LO54");
+		myCourses.add("BD50");
+		CourseController courseController = new CourseController();
+		List<Course> myList = courseController.getGroupCoursesByCode(myCourses);
+		for(Course myCourse: myList) {
+            System.out.println(myCourse.toString());
+        }*/
+		
+		/*CourseController courseController = new CourseController ();
+		String date = "2017-05-25";
+		//List<Course> myList = new ArrayList<Course>();
+		try {
+			//myList = courseController.getCoursesByDateLocationTitleFragment(new SimpleDateFormat("yyyy-MM-dd").parse(date), 1, "Java");
+			//courseController.getCoursesByDateLocationTitleFragment(new SimpleDateFormat("yyyy-MM-dd").parse(date), 1, "Java");
+			courseController.getCoursesByDateLocationTitleFragment(new SimpleDateFormat("yyyy-MM-dd").parse(date), null, null);
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*for(Course myCourseSession: myList) {
+			System.out.println(myCourseSession.toString());
+		}*/
 	}
 }

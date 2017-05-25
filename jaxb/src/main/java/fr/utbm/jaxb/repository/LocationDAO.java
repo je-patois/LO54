@@ -12,14 +12,28 @@ import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.entity.Location;
 import fr.utbm.jaxb.util.HibernateUtil;
 
+/**
+ * [Couche - DAO] - Entité Location
+ */
 public class LocationDAO implements Serializable {
 
+	// --------- DEFINITION DES VARIABLES ---------
+	
+	private static final long serialVersionUID = 1L;
 	private Session session;
 	
-	// Constructeur par défaut
+
+	// --------- CONSTRUCTEUR ---------
+	
+	/**
+	 * Constructeur par défaut
+	 */
 	public LocationDAO() {
 		
 	}
+	
+	
+	// --------- GETTERS & SETTERS ---------
 	
 	public Session getSession() {
 		return session;
@@ -29,10 +43,18 @@ public class LocationDAO implements Serializable {
 		this.session = session;
 	}
 
-	// Récupère toutes les informations de toutes les locations
+	
+	// --------- METHODES ---------
+	
+	/**
+	 * Récupère et renvoie toutes les villes
+	 * @return
+	 */
 	public List<Location> getLocation() {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		List<Location> locationList = new ArrayList<Location>();
+		
 	    try {
 	        getSession().beginTransaction();
             Query query = getSession().createQuery("from Location");
@@ -61,9 +83,16 @@ public class LocationDAO implements Serializable {
        return locationList;
 	}
 	
+	/**
+	 * Récupère et renvoie une ville dont l'ID est donné en paramètre
+	 * @param id
+	 * @return
+	 */
 	public Location getLocationById(int id) {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		Location location = new Location();
+		
 		try {
 			getSession().beginTransaction();
 			Query query = getSession().createQuery("from Location where id = :id");
@@ -98,10 +127,16 @@ public class LocationDAO implements Serializable {
 		return location;
 	}
 	
-	// Ajoute une location
+	/**
+	 * Ajoute une ville en base de données en avertissant de la réussite ou non de l'opération
+	 * @param location
+	 * @return
+	 */
 	public boolean addLocation(Location location) {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		Boolean success;
+		
 	    try {
 	        getSession().beginTransaction();
             getSession().persist(location);
@@ -131,10 +166,16 @@ public class LocationDAO implements Serializable {
        return success;
 	}
 	
-	// Met à jour une location
+	/**
+	 * Met à jour une ville en base en avertissant de la réussite ou non de l'opération
+	 * @param courseSession
+	 * @return
+	 */
 	public boolean updateLocation(CourseSession courseSession) {
+		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		Boolean success;
+		
 	    try {
 	        getSession().beginTransaction();
             getSession().merge(courseSession);
@@ -164,11 +205,16 @@ public class LocationDAO implements Serializable {
        return success;
 	}
 	
-	//Suppression d'une location
+	/** 
+	 * Supprime une ville en avertissant de la réussite ou non de l'opération
+	 * @param location
+	 * @return
+	 */
 	public boolean deleteClient (Location location){
 		
 		setSession(HibernateUtil.getSessionFactory().openSession());
 		boolean succes;
+		
 		try {
 			getSession().beginTransaction();
 			getSession().delete(location);
@@ -187,20 +233,15 @@ public class LocationDAO implements Serializable {
 	            }
 	        }
 		}
-		
 		finally {
-		
 			if(getSession() != null) {
 	            try { 
 	            	getSession().close();
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
-	            }
-	                
+	            }    
 			}
-	
 		}
-		
 		return succes;
 	}
 }

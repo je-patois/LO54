@@ -1,7 +1,7 @@
 package fr.utbm.jaxb.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,22 +11,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * [Entité] - CourseSession
+ */
 @Entity
 public class CourseSession implements Serializable{
 
-	public CourseSession() {
-		
-	}
+	// --------- DEFINTIION DES VARIABLES ---------
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ID")
+	private static final long serialVersionUID = 1L;
+	
+	@Id // Identifiant en BDD
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment en BDD
+	@Column(name="ID") // Nom de colonne en BDD
 	private Integer id;
 	
-	@Column(name="START_DATE")
+	@Column(name="START_DATE") // Nom de colonne en BDD
 	private Date startDate;
 	
-	@Column(name="END_DATE")
+	@Column(name="END_DATE") // Nom de colonne en BDD
 	private Date endDate;
 	
 	/*@Column(name="COURSE_CODE")
@@ -50,14 +53,37 @@ public class CourseSession implements Serializable{
 	@OneToMany(mappedBy="courseSessionId")
 	private List<Client> clients;*/
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE) // Relationnel
 	//@Column(name="COURSE_CODE")
 	private Course course;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE) // Relationnel
 	//@Column(name="LOCATION_ID")
 	private Location location;
 
+	
+	// --------- CONSTRUCTEURS ---------
+	
+	/**
+	 * Constructeur par défaut
+	 */
+	public CourseSession() {
+		
+	}
+	
+	/** 
+	 * Constructeur complet
+	 * @param startDate
+	 * @param endDate
+	 */
+	public CourseSession(Date startDate, Date endDate) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	
+	// --------- GETTERS & SETTERS, toString ---------
+	
 	public Integer getId() {
 		return id;
 	}
@@ -98,15 +124,13 @@ public class CourseSession implements Serializable{
 		this.location = location;
 	}
 
-
-
-	/*@Override
+	@Override
 	public String toString() {
-		return "CourseSession [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", courseCode="
-				+ courseCode + ", locationId=" + locationId + "]";
+		return "CourseSession [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", course=" + course
+				+ ", location=" + location + "]";
 	}
 
-	public String getCourseCode() {
+	/*public String getCourseCode() {
 		return courseCode;
 	}
 
@@ -120,12 +144,5 @@ public class CourseSession implements Serializable{
 
 	public void setLocationId(Integer locationId) {
 		this.locationId = locationId;
-	}*/
-	
-	
-
-	
-	
-	
-	
+	}*/	
 }
