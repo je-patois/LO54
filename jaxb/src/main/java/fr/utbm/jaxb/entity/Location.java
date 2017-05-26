@@ -49,6 +49,15 @@ public class Location implements Serializable {
 		
 	}
 	
+	/**
+	 * Constructeur complet
+	 * @return
+	 */
+	public Location(int id, String city) {
+		this.id = id;
+		this.city = city;
+	}
+	
 	
 	// --------- GETTERS & SETTERS, toString ---------
 	

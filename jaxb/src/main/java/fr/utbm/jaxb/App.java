@@ -1,11 +1,19 @@
 package fr.utbm.jaxb;
 
+import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-import fr.utbm.jaxb.controller.CourseController;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import fr.utbm.jaxb.controller.ClientController;
+import fr.utbm.jaxb.entity.Client;
 import fr.utbm.jaxb.entity.Course;
+import fr.utbm.jaxb.entity.CourseSession;
+import fr.utbm.jaxb.entity.Location;
 
 // ZONE DE TEST
 
@@ -96,5 +104,56 @@ public class App
 		/*for(Course myCourseSession: myList) {
 			System.out.println(myCourseSession.toString());
 		}*/
+		
+		/*JAXBContext context = null;
+		Course course = new Course("IF10", "Informatique");
+		Location location = new Location(1, "Sévenans");
+		String startDate = "2017-05-26";
+		String endDate = "2017-05-30";
+		CourseSession courseSession = null;
+		try {
+			courseSession = new CourseSession(new SimpleDateFormat("yyyy-MM-dd").parse(startDate), new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		courseSession.setLocation(location);
+		courseSession.setCourse(course);
+		Client client = new Client("Lastname", "Firstname", "Adress", "Phone", "Mail");
+		client.setCourseSessionId(courseSession);
+		try {
+			context = JAXBContext.newInstance(Client.class);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.marshal(client, new File("Client.xml"));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			Object myObject = unmarshaller.unmarshal(new File("Client.xml"));
+			System.out.println("unmarshalled = " + myObject);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+	    
+	    // Récupération du client en base de données
+	    /*ClientController clientController = new ClientController();
+	    Client client = clientController.getClientById(9);
+
+	    try {
+			clientController.fromClientToXML(client, "InscriptionDetails.xml");
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/		
 	}
 }

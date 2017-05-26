@@ -11,7 +11,7 @@
 		<form action="addcourse" method="post">
 	       	Code de cours*: <input type="text" name="code" required/><br/>
 	       	Intitulé*: <input type="text" name="title" required/><br/>
-       		<input type="submit" value="Create"/>
+       		<input type="submit" value="Ajouter le cours"/>
        	</form>
 	</body>
 </html>

@@ -30,7 +30,7 @@
 	       			<option value="${location.getId()}">${location.getCity()}</option> 
 				</c:forEach>
 			</select><br/>
-       		<input type="submit" value="Create"/>
+       		<input type="submit" value="Ajouter la session"/>
        	</form>
 	</body>
 </html>

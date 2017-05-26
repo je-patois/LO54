@@ -3,6 +3,8 @@ package fr.utbm.jaxb.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import fr.utbm.jaxb.entity.Client;
 import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.service.ClientService;
@@ -42,6 +44,16 @@ public class ClientController implements Serializable {
 	// --------- METHODES ---------
 	
 	/**
+	 * Récupère et renvoie un client dont l'ID est donné en paramètre
+	 * @param id
+	 * @return
+	 */
+	public Client getClientById(int id) {
+		Client client = clientService.getClientById(id);
+		return client;
+	}
+	
+	/**
 	 *  Ajoute un client en base de donnée en avertissant du succès ou non de l'opération
 	 * @param client
 	 * @return
@@ -59,5 +71,26 @@ public class ClientController implements Serializable {
 	public List<Client> getClientsByCourseSession(CourseSession courseSession) {
 		List<Client> clients = clientService.getClientsByCourseSession(courseSession);
 		return clients;
+	}
+	
+	/**
+	 * Utilise les fonctionnalités de JAXB pour sérialiser l'object Client dans un fichier XML
+	 * @param client
+	 * @throws JAXBException 
+	 */
+	public String fromClientToXML(Client client, String filename) throws JAXBException {
+		String path = clientService.fromClientToXML(client, filename);
+		return path;
+	}
+	
+	/**
+	 * Utilise les fonctionnalités de JAXB pour déséraliser un fichier XML relatif à l'inscription d'un client
+	 * @param filename
+	 * @return
+	 * @throws JAXBException
+	 */
+	public Client fromXMLToClient(String path) throws JAXBException {
+		Client client = clientService.fromXMLtoClient(path);
+		return client;
 	}
 }

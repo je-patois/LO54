@@ -94,8 +94,9 @@ public class SessionInscription extends HttpServlet implements Serializable {
 	    	out.println("<p>Echec de l'ajout.</p>");
 	    }
 	    
-	    // Redirection vers la servlet listcoursesession
-	    out.println("<a href=\"http://localhost:8080/jaxb/listcoursesession?course=" + course + "\">Retourner à la liste des sessions de cours</a></body></html>");
+	    // Redirection vers la servlet listcoursesession ou vers l'export du résultat en XML
+	    out.println("<a href=\"http://localhost:8080/jaxb/listcoursesession?course=" + course + "\">Retourner à la liste des sessions de cours</a>");
+	    out.println("<a href=\"http://localhost:8080/jaxb/exportxmlfile?clientID=" + client.getId() + "&course=" + course + "\">Récupérer le XML associé</a></body></html>");
 	    //this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/courseinscription.jsp" ).forward( request, response );
     }
 	

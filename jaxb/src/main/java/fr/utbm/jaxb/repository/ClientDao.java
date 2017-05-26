@@ -1,15 +1,22 @@
 package fr.utbm.jaxb.repository;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import fr.utbm.jaxb.entity.Client;
+import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.util.HibernateUtil;
-import fr.utbm.jaxb.entity.*;
 
 /**
  * [Couche: DAO] - Entité Client
@@ -20,6 +27,7 @@ public class ClientDao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Session session; 
+	private JAXBContext context;
 	
 	
 	// --------- CONSTRUCTEURS ---------
@@ -28,7 +36,12 @@ public class ClientDao implements Serializable {
 	 * Constrcuteur par défaut
 	 */
 	public ClientDao() {
-		
+		try {
+			initJAXBContext();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -40,6 +53,14 @@ public class ClientDao implements Serializable {
 
 	public void setSession(Session session) {
 		this.session = session;
+	}
+	
+	public JAXBContext getContext() {
+		return context;
+	}
+	
+	public void setContext(JAXBContext context) {
+		this.context = context;
 	}
 
 	
@@ -277,5 +298,39 @@ public class ClientDao implements Serializable {
 			}
 		}
 		return succes;
+	}
+	
+	/**
+	 * Initalise JAXBContext
+	 * @throws JAXBException 
+	 */
+	public void initJAXBContext() throws JAXBException {
+		this.context = JAXBContext.newInstance(Client.class);
+	}
+	
+	/**
+	 * Utilise les fonctionnalités de JAXB pour sérialiser l'object Client dans un fichier XML
+	 * @param client
+	 * @throws JAXBException 
+	 */
+	public String fromClientToXML(Client client, String filename) throws JAXBException {
+		String home = System.getProperty("user.home");
+		File file = new File(home+"/Downloads/" + filename + ".xml"); 
+		
+		Marshaller marshaller = this.context.createMarshaller();
+		marshaller.marshal(client, file);
+		
+		return home+"\\Downloads\\";
+	}
+	
+	/**
+	 * Utilise les fonctionnalités de JAXB pour déséraliser un fichier XML relatif à l'inscription d'un client
+	 * @param filename
+	 * @throws JAXBException
+	 */
+	public Client fromXMLToClient(String path) throws JAXBException {
+		Unmarshaller unmarshaller = this.context.createUnmarshaller();
+		Client client = (Client) unmarshaller.unmarshal(new File(path));
+		return client;
 	}
 }

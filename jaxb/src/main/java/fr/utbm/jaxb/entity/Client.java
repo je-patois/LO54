@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.*;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -18,6 +19,8 @@ import org.hibernate.annotations.FetchMode;
  * [Entité] - Client
  */
 @Entity
+@XmlRootElement(name="Client")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Client implements Serializable{
 	
 	
