@@ -58,4 +58,12 @@ public class LocationService implements Serializable {
 		Location location = locationDao.getLocationById(id);
 		return location;
 	}
+	
+	/**
+	 * Ajoute une ville passée en paramètre en base de données en avertissant de la réussite ou non de l'opération
+	 */
+	public boolean addLocation(Location location) {
+		boolean success = locationDao.addLocation(location);
+		return success;
+	}
 }

@@ -47,7 +47,7 @@ public class AddCourse extends HttpServlet implements Serializable {
 	    String code = request.getParameter("code");
 	    String title = request.getParameter("title");
 	    
-	    out.println("<html><body><h1>Adding course to database</h1><br/><p>Code:" + code+ "<br/>Title: " + title + "</p>");
+	    out.println("<html><body><h1>Ajout du cours en base de données</h1><br/><p>Code:" + code+ "<br/>Title: " + title + "</p>");
 	    
 	    // Ajout du cours en base de données
 	    Course courseToAdd = new Course(code, title);

@@ -55,4 +55,14 @@ public class LocationController implements Serializable {
 		Location location = locationService.getLocationById(id);
 		return location;
 	}
+	
+	/**
+	 * Ajoute une ville donnée en paramètre en base de données en avertissant de la réussite ou non de l'opération
+	 * @param location
+	 * @return
+	 */
+	public boolean addLocation(Location location) {
+		boolean success = locationService.addLocation(location);
+		return success;
+	}
 }

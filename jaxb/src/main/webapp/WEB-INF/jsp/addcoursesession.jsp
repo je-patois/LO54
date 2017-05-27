@@ -29,7 +29,9 @@
 	       		<c:forEach var="location" items="${locations}">
 	       			<option value="${location.getId()}">${location.getCity()}</option> 
 				</c:forEach>
-			</select><br/>
+			</select>
+			<a href="http://localhost:8080/jaxb/addlocation?course=<%= request.getParameter("course") %>">Le lieu n'est pas dans la liste ?</a>
+			<br/>
        		<input type="submit" value="Ajouter la session"/>
        	</form>
 	</body>
