@@ -60,7 +60,7 @@ public class ListCourse extends HttpServlet implements Serializable {
 	// --------- METHODES ---------
 	
 	/**
-	 * Comportement du servlet 
+	 * Comportement de la servlet 
 	 * @param request
 	 * @param response
 	 * @throws ServletException

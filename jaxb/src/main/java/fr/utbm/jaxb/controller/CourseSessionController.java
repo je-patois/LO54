@@ -101,4 +101,20 @@ public class CourseSessionController implements Serializable {
 		List<CourseSession> courseSessions = courseSessionService.getCourseSessionByLocation(locationId);
 		return courseSessions;
 	}
+	
+	/**
+	 * Récupère et renvoie les sessions de cours dont les paramètres concordent avec :
+	 * - une date donnée
+	 * - une ville donnée
+	 * - un cours donné
+	 * Les paramètres peuvent être null ou non
+	 * @param date
+	 * @param locationId
+	 * @param code
+	 * @return
+	 */
+	public List<CourseSession> getCourseSessionsByDateLocationCode(Date date, Integer locationId, String code) {
+		List<CourseSession> courseSessions = courseSessionService.getCourseSessionsByDateLocationCode(date, locationId, code);
+		return courseSessions;
+	}
 }

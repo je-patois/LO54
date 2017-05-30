@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import fr.utbm.jaxb.entity.Course;
 import fr.utbm.jaxb.entity.CourseSession;
@@ -275,6 +277,61 @@ public class CourseSessionDAO implements Serializable {
 	            }catch(HibernateException he2) {
 	            	he2.printStackTrace(); 
 	            }  
+			}
+		}
+		return courseSessions;
+	}
+	
+	/**
+	 * Récupère et renvoie les sessions de cours dont les paramètres concordent avec :
+	 * - une date donnée
+	 * - une ville donnée
+	 * Les paramètres peuvent être null ou non
+	 * ! Utilisation de l'API Criteria
+	 * @param date
+	 * @param locationId
+	 * @param code
+	 * @return
+	 */
+	public List<CourseSession> getCourseSessionsByDateLocationCode(Date date, Integer locationId, String code) {
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		List<CourseSession> courseSessions = new ArrayList<CourseSession>();
+		
+		try {
+			session.beginTransaction();
+			
+			Criteria criteria = session.createCriteria(CourseSession.class,"cs");
+			criteria.createCriteria("course","c")
+				.add(Restrictions.eq("c.code", code));
+			if (date != null) {
+	            criteria.add(Restrictions.le("cs.startDate", date));
+	            criteria.add(Restrictions.ge("cs.endDate", date));
+	        }
+	        if (locationId != null) {
+	        	criteria.createAlias("location", "l");
+	            criteria.add(Restrictions.eq("l.id", locationId));
+	        }
+			courseSessions =criteria.list();
+			session.getTransaction().commit();
+		}
+		catch (HibernateException he) {
+	        he.printStackTrace();
+	        if(session.getTransaction() != null) {
+	            try {
+	            	session.getTransaction().rollback();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }
+	        }
+		}
+		finally {
+			if(session != null) {
+	            try { 
+	            	session.close();
+	            }catch(HibernateException he2) {
+	            	he2.printStackTrace(); 
+	            }    
 			}
 		}
 		return courseSessions;
