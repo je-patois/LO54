@@ -2,6 +2,7 @@ package fr.utbm.jaxb.servlet;
 
 import java.io.Serializable;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +63,12 @@ public class ExportXMLFile extends HttpServlet implements Serializable {
 			e.printStackTrace();
 		}
 	    
-	    out.println("<html><body><h1>Export du fichier XML</h1><br/><p>Le fichier " + filename + ".xml a été enregistré dans " + path + ".</p><br/><br/><a href=\"http://localhost:8080/jaxb/listcoursesession?course=" + course + "\">Retourner à la liste des sessions de cours</a></body></html>");
-	    out.close();
+	    //rajout des paramètres pour le jsp
+	    request.setAttribute("path", path);
+	    request.setAttribute("filename", filename);
+	    
+	    //appel du jsp
+	    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/exportXMLDone.jsp");			
+	    dispatcher.forward(request,response);
 	}
 }

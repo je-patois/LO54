@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,18 +56,20 @@ public class ListRegistered extends HttpServlet implements Serializable {
 		CourseSessionController courseSessionController = new CourseSessionController();
 		List<Client> clients = clientController.getClientsByCourseSession(courseSessionController.getCourseSessionByID(Integer.parseInt(session)));
 		
-		out.println("<html><body><h1>Liste des inscrits à la session " + session + " de " + course + "</h1>");
+		
 		for(Client client: clients) {
             out.println("<p>Nom: " + client.getLastname() + "<br/>Prénom: " + client.getFirstname() + "<br/>Adress: " + client.getAdress() + "<br/>Phone: " + client.getPhone() + "<br/>email: " + client.getEmail() + "</p>");
         }
 		
-		// Transmission des paramètres
+		// rajout des paramètres pour le jsp
 		request.setAttribute("course", course);
 		request.setAttribute("session", session);
+		request.setAttribute("clients", clients);
 		
-		// redirection vers la servlet listcoursesession
-		out.println("<a href=\"http://localhost:8080/jaxb/listcoursesession?course=" + course + "\">Retourner à la liste des sessions de cours</a></body></html>");
-        //this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/coursesessions.jsp" ).forward( request, response );
+		// appel du jsp
+		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/listRegistered.jsp");			
+	    dispatcher.forward(request,response);	
+		
     }
 
 	/**

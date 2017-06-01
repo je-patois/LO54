@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -83,13 +84,15 @@ public class AddCourseSession extends HttpServlet implements Serializable {
 	    courseSessionToAdd.setLocation(locationToAdd);
 	    
 	    boolean success = courseSessionController.addCourseSession(courseSessionToAdd);
-	    if(success) {
-	    	out.println("<p>Ajout réussi !</p>");
-	    } else {
-	    	out.println("<p>Echec de l'ajout.</p>");
-	    }
-	    out.println("<a href=\"http://localhost:8080/jaxb/listcoursesession?course=" + courseToAdd.getCode() + "\">Retourner à la liste des sessions de cours</a></body></html>");
-	    out.close();
+	    
+	    //rajout des paramètres pour le jsp
+	    request.setAttribute("success", success);
+	    request.setAttribute("course", courseToAdd.getCode());
+	    
+	    //appel du jsp
+	    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/addCourseSessionDone.jsp");			
+	    dispatcher.forward(request,response);	
+	    
 	}
 	
 	/**

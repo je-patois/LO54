@@ -2,6 +2,7 @@ package fr.utbm.jaxb.servlet;
 
 import java.io.Serializable;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,20 +47,19 @@ public class AddLocation extends HttpServlet implements Serializable {
 	    // Récupération du paramètre
 	    String city = request.getParameter("city");
 	    
-	    out.println("<html><body><h1>Ajout de la ville en base de données</h1><br/><p>City:" + city + "</p>");
 	    
 	    // Ajout de la ville en base de données
 	    Location locationToAdd = new Location(city);
 	    LocationController locationController = new LocationController();
 	    
 	    boolean success = locationController.addLocation(locationToAdd);
-	    if(success) {
-	    	out.println("<p>La ville a été ajouté avec succès.</p>");
-	    } else {
-	    	out.println("<p>Une erreur est survenue durant l'ajout en base de données. Veuillez réessayer plus tard.</p>");
-	    }
-	    out.println("<a href=\"http://localhost:8080/jaxb/addcoursesession?course=" + request.getParameter("course") + "\">Retourner de création de session de cours</a></body></html>");
-	    out.close();
+	    
+	    //rajout des paramètres pour le jsp
+	    request.setAttribute("success", success);
+	    
+	    // appel de la page jsp
+	    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/locationAdded.jsp");			
+	    dispatcher.forward(request,response);
 	}
 	
 	/**

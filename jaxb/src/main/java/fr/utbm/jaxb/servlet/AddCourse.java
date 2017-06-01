@@ -2,6 +2,7 @@ package fr.utbm.jaxb.servlet;
 
 import java.io.Serializable;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,26 +42,28 @@ public class AddCourse extends HttpServlet implements Serializable {
 	    ServletException, java.io.IOException {
 		
 	    response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter();
+	    //java.io.PrintWriter out = response.getWriter();
+	    
+	    
+	    
 	    
 	    // Récupération des paramètres
 	    String code = request.getParameter("code");
 	    String title = request.getParameter("title");
-	    
-	    out.println("<html><body><h1>Ajout du cours en base de données</h1><br/><p>Code:" + code+ "<br/>Title: " + title + "</p>");
 	    
 	    // Ajout du cours en base de données
 	    Course courseToAdd = new Course(code, title);
 	    CourseController courseController = new CourseController();
 	    
 	    boolean success = courseController.addCourse(courseToAdd);
-	    if(success) {
-	    	out.println("<p>Le cours a été ajouté avec succès.</p>");
-	    } else {
-	    	out.println("<p>Une erreur est survenue durant l'ajout en base de données. Veuillez réessayer plus tard.</p>");
-	    }
-	    out.println("<a href=\"http://localhost:8080/jaxb\">Retourner à la page princpale</a></body></html>");
-	    out.close();
+	    
+	    //rajout des paramètre pour le jsp
+	    request.setAttribute("success", success);
+	    
+	    //appel du jsp
+	    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/courseAdded.jsp");			
+	    dispatcher.forward(request,response);	
+	    
 	}
 	
 	/**

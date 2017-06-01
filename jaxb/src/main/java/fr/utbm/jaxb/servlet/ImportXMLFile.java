@@ -3,6 +3,7 @@ package fr.utbm.jaxb.servlet;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,14 +70,17 @@ public class ImportXMLFile extends HttpServlet implements Serializable {
 		
 		// Ajout du client
 	    boolean success = clientController.addClient(client);
-	    if(success) {
-	    	out.println("<p>Ajout réussi !</p>");
-	    } else {
-	    	out.println("<p>Echec de l'ajout.</p>");
-	    }
+
+	    //rajout des paramètres pour le jsp
+	    request.setAttribute("success", success);
+	    request.setAttribute("cours", courseSession.getCourse().getCode());
+	    request.setAttribute("clientId", client.getId());
+	    
+	    //appel du jsp
+	    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/importXMLDone.jsp");			
+	    dispatcher.forward(request,response);	
 	    
 	    // Redirection vers la servlet listcoursesession ou vers l'export du résultat en XML
-	    out.println("<a href=\"http://localhost:8080/jaxb/listcoursesession?course=" + courseSession.getCourse().getCode() + "\">Retourner à la liste des sessions de cours</a>");
-	    out.println("<a href=\"http://localhost:8080/jaxb/exportxmlfile?clientID=" + client.getId() + "&course=" + courseSession.getCourse().getCode() + "\">Récupérer le XML associé</a></body></html>");
+	    //out.println("<a href=\"http://localhost:8080/jaxb/exportxmlfile?clientID=" + client.getId() + "&course=" + courseSession.getCourse().getCode() + "\">Récupérer le XML associé</a></body></html>");
     }
 }
