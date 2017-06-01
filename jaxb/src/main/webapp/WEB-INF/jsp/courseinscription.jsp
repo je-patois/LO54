@@ -29,8 +29,8 @@
 	     </form>
 	     <br/><br/>
 	     <h2>Inscription via fichier XML</h2>
-	     <form action="importxmlfile" method="post" id = "formInscriptionXML">
-	     	<input type="file" id="file" name="filepath">
+	     <form action="importxmlfile" method="post" id = "formInscriptionXML" enctype="multipart/form-data"> <!-- enctype : Nécessaire à la manipulation du fichier via la balise input type file -->
+	     	<input type="file" id="file" name="file">
 	     	N° de session: <input type="text" name="session" value='<%=request.getParameter("session")%>' readonly/>
 	     	<input type="submit" value="S'inscrire"/>
 	     </form>

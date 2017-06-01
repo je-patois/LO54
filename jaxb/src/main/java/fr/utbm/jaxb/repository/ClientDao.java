@@ -1,6 +1,7 @@
 package fr.utbm.jaxb.repository;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -328,9 +329,9 @@ public class ClientDao implements Serializable {
 	 * @param filename
 	 * @throws JAXBException
 	 */
-	public Client fromXMLToClient(String path) throws JAXBException {
+	public Client fromXMLToClient(InputStream content) throws JAXBException {
 		Unmarshaller unmarshaller = this.context.createUnmarshaller();
-		Client client = (Client) unmarshaller.unmarshal(new File(path));
+		Client client = (Client) unmarshaller.unmarshal(content);
 		return client;
 	}
 }

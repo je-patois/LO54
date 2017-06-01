@@ -1,5 +1,6 @@
 package fr.utbm.jaxb.controller;
 
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -89,8 +90,8 @@ public class ClientController implements Serializable {
 	 * @return
 	 * @throws JAXBException
 	 */
-	public Client fromXMLToClient(String path) throws JAXBException {
-		Client client = clientService.fromXMLtoClient(path);
+	public Client fromXMLToClient(InputStream content) throws JAXBException {
+		Client client = clientService.fromXMLtoClient(content);
 		return client;
 	}
 }
