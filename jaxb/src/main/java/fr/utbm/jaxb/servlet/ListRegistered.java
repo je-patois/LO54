@@ -44,8 +44,8 @@ public class ListRegistered extends HttpServlet implements Serializable {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		
-		response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter();
+		//response.setContentType("text/html");
+	    //java.io.PrintWriter out = response.getWriter();
 	    
 	    // Récupération des paramètres
 		String course = request.getParameter("course");
@@ -57,9 +57,9 @@ public class ListRegistered extends HttpServlet implements Serializable {
 		List<Client> clients = clientController.getClientsByCourseSession(courseSessionController.getCourseSessionByID(Integer.parseInt(session)));
 		
 		
-		for(Client client: clients) {
+		/*for(Client client: clients) {
             out.println("<p>Nom: " + client.getLastname() + "<br/>Prénom: " + client.getFirstname() + "<br/>Adress: " + client.getAdress() + "<br/>Phone: " + client.getPhone() + "<br/>email: " + client.getEmail() + "</p>");
-        }
+        }*/
 		
 		// rajout des paramètres pour le jsp
 		request.setAttribute("course", course);

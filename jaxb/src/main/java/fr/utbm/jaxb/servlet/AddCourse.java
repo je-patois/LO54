@@ -40,12 +40,6 @@ public class AddCourse extends HttpServlet implements Serializable {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
 	    ServletException, java.io.IOException {
-		
-	    response.setContentType("text/html");
-	    //java.io.PrintWriter out = response.getWriter();
-	    
-	    
-	    
 	    
 	    // Récupération des paramètres
 	    String code = request.getParameter("code");

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import fr.utbm.jaxb.entity.Course;
 import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.service.CourseSessionService;
 

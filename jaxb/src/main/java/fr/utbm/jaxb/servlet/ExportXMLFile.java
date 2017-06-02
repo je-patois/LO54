@@ -43,12 +43,9 @@ public class ExportXMLFile extends HttpServlet implements Serializable {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 	    ServletException, java.io.IOException {
 		
-	    response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter();
 	    
 	    // Récupération des paramètres
 	    String clientID = request.getParameter("clientID");
-	    String course = request.getParameter("course");
 	    
 	    // Récupération du client en base de données
 	    ClientController clientController = new ClientController();

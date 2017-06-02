@@ -3,7 +3,7 @@ package fr.utbm.jaxb.servlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.nio.file.Paths;
+//import java.nio.file.Paths;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,9 +49,6 @@ public class ImportXMLFile extends HttpServlet implements Serializable {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		
-		response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter();
-		
 		// Récupération des paramètres
 		String courseSessionID = request.getParameter("session");
 		// Récupérer simplement le paramètre file n'est pas une option viable :
@@ -59,7 +56,7 @@ public class ImportXMLFile extends HttpServlet implements Serializable {
 			// Sous les autres navigateurs, cette solution ne fonctionne pas, par mesure de sécurité (on récupère le nom du fichier uniquement, et pas le chemin complet)
 		// C'est pourquoi nous utilisons une méthode plus complexe, en introduisant un InputStream pour pouvoir manipuler le fichier
 		Part filePart = request.getPart("file"); // Récupère le contenu de la balise input type file
-	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();  // Récupère le nom du fichier
+	    //String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();  // Récupère le nom du fichier
 	    InputStream fileContent = filePart.getInputStream(); // Récupère l'InputStream, que JAXB peut manipuler
 		
     	

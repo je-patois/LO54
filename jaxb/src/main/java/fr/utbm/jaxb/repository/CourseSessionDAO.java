@@ -11,7 +11,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import fr.utbm.jaxb.entity.Course;
 import fr.utbm.jaxb.entity.CourseSession;
 import fr.utbm.jaxb.entity.Location;
 import fr.utbm.jaxb.util.HibernateUtil;

@@ -18,7 +18,7 @@
 		<div class= "corps">
 		<form action="addlocation" method="post" id="formAddLocation">
 	       	<div class= "intFormAddLocation">Ville*: </div><input type="text" name="city" required/><br/>
-	       	<input type="hidden" name="course" value='<%=request.getParameter("course") %>' readonly%>
+	       	<input type="hidden" name="course" value='<%=request.getParameter("course") %>' readonly/>
        		<input type="submit" value="Ajouter le lieu"/>
        	</form>
        	</div>

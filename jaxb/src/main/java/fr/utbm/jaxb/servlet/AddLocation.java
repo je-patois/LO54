@@ -40,9 +40,6 @@ public class AddLocation extends HttpServlet implements Serializable {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
 	    ServletException, java.io.IOException {
-		
-	    response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter();
 	    
 	    // Récupération du paramètre
 	    String city = request.getParameter("city");

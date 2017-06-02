@@ -65,8 +65,7 @@ public class SessionInscription extends HttpServlet implements Serializable {
 	protected void processRequestPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		
-		response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter();
+
 	    
 	    // Récupération des paramètres
 		String adress = request.getParameter("adress");
@@ -74,10 +73,7 @@ public class SessionInscription extends HttpServlet implements Serializable {
 	    String firstname = request.getParameter("firstname");
 	    String lastname = request.getParameter("lastname");
 	    String phone = request.getParameter("phone");
-	    String course = request.getParameter("course");
 	    String sessionID = request.getParameter("session");
-	    
-	    //out.println("<html><body><h1>Ajout du profil en base de données</h1><br/><p>Adress:" + adress + "<br/>Email: " + email + "<br/>Firstname: " + firstname + "<br/>Lastname: " + lastname + "<br/>Phone: " + phone + "<br/>Cours: " + course + "<br/>Session: " + sessionID + "</p>");
 	    
 	    //Récupération de la session
 	    CourseSessionController courseSessionController = new CourseSessionController();
