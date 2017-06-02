@@ -14,7 +14,7 @@
 		<div id="menubar">
 			<ul id="menu">
 				<li><a href="http://localhost:8080/jaxb">Accueil </a></li>
-				<li><a href= <%="http://localhost:8080/jaxb/listcoursesession?course=" + cours %>>Retourner à la liste des sessions de cours</a></li>
+				<li><a href= <%="http://localhost:8080/jaxb/addcoursesession?course=" + cours %>>Retourner à la création de la session</a></li>
 			</ul>
 		</div>
 		<div class="corps">
