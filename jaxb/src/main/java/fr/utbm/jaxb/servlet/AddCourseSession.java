@@ -50,15 +50,12 @@ public class AddCourseSession extends HttpServlet implements Serializable {
 	    ServletException, java.io.IOException {
 		
 	    response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter();
 	    
 	    // Récupération des paramtères
 	    String startDate = request.getParameter("startDate");
 	    String endDate = request.getParameter("endDate");
 	    String course = request.getParameter("course");
 	    String location = request.getParameter("location");
-	    
-	    out.println("<html><body><h1>Data:</h1><br/><p>Start date:" + startDate + "<br/>End date: " + endDate + "<br/>Course: " + course + "<br/>Location: " + location + "</p>");
 	    
 	    // Formattage des dates pour compatabilité avec la base de données
 	    CourseSessionController courseSessionController = new CourseSessionController();
